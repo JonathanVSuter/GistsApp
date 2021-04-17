@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:c="clr-namespace:GistApp.Components"  
+             x:Class="GistApp.Views.GitListPage">
+    
+            
+    <ContentPage.Content>
+        <c:CustomGrid
+            Padding="10">
+            <c:CustomCollectionView
+                SelectionChanged="CustomCollectionView_SelectionChanged"
+                RemainingItemsThreshold="{Binding ItensPerPage}"
+                RemainingItemsThresholdReached="CustomCollectionView_RemainingItemsThresholdReached"
+                ItemsSource="{Binding Items}"
+                SelectedItem="{Binding Item}"                
+                SelectionMode="Single">
+                <c:CustomCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup
+                                    Name="CommonStates">
+                                    <VisualState Name="Normal"/>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightGray" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50*"/>
+                                <RowDefinition Height="50*"/>
+                            </Grid.RowDefinitions>
+                            <Label 
+                                Text="{Binding Owner.Login}"
+                                Style="{StaticResource LabelStyle}"
+                                FontSize="Large"
+                                Grid.Row="0"/>
+                        </Grid>
+                    </DataTemplate>
+                </c:CustomCollectionView.ItemTemplate>
+            </c:CustomCollectionView>
+        </c:CustomGrid>
+    </ContentPage.Content>
+</ContentPage>
