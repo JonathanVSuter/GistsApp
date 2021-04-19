@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:c="clr-namespace:GistApp.Components"
-             xmlns:l="clr-namespace:GistApp.Helpers"
              xmlns:f="clr-namespace:GistApp.Helpers.Fonts"
-             x:Class="GistApp.Views.GitDetailPage">
+             x:Class="GistApp.Views.FavoriteDetailPage">
     <Shell.TitleView>
         <StackLayout
             Orientation="Horizontal">
@@ -100,23 +99,11 @@
                                 FontSize="Medium"
                                 Style="{StaticResource ItemLabelStyle}"
                                 Grid.Row="2"
-                                Grid.Column="1"/>                            
+                                Grid.Column="1"/>
                         </Grid>
                     </DataTemplate>
                 </c:CustomCollectionView.ItemTemplate>
-            </c:CustomCollectionView>
-            <Button
-                Grid.Row="5"
-                Clicked="Button_Clicked">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="{StaticResource FontAwesomeRegularSolid}"
-                        Glyph="{x:Static f:FAFontsRegularSolid.Heart}"
-                        Color="Red"                        
-                        Size="Title">
-                    </FontImageSource>
-                </Button.ImageSource>
-            </Button>                
+            </c:CustomCollectionView>            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

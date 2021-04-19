@@ -1,4 +1,5 @@
 ﻿using GistApp.ExtractModels;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,29 @@ namespace GistApp.ExtractModels
 {
     public class PostGistItem : IBaseExtractModel
     {
+        [BsonId]
         [JsonPropertyName("id")]
         public string Id { get; set; }
-        
+        [BsonField("node_id")]
         [JsonPropertyName("node_id")]
         public string Node_Id { get; set; }
+        [BsonField("git_pull_url")]
         [JsonPropertyName("git_pull_url")]
         public string Git_Pull_Url { get; set; }
+        [BsonField("git_push_url")]
         [JsonPropertyName("git_push_url")]
         public string Git_Push_Url { get; set; }
+        [BsonField("html_url")]
         [JsonPropertyName("html_url")]
-        public string Html_Url { get; set; }       
+        public string Html_Url { get; set; }
+        [BsonField("Files")]
         [JsonIgnore]
         public List<File> Files {get; set;}
+        [BsonIgnore]
         [JsonIgnore]
         private IDictionary<string, JsonElement> _FilesObj;
         [JsonPropertyName("files")]
+        [BsonIgnore]
         public IDictionary<string, JsonElement> FilesObj
         {
             get 
@@ -49,28 +57,40 @@ namespace GistApp.ExtractModels
                     }).ToList();                
             }
         }
+        [BsonField("owner")]
         [JsonPropertyName("owner")]
         public Owner Owner { get; set; } = new Owner();
+        [BsonField("url")]
         [JsonPropertyName("url")]
         public string Url { get; set; }
+        [BsonField("forks_url")]
         [JsonPropertyName("forks_url")]
         public string Forks_Url { get; set; }
+        [BsonField("commits_url")]
         [JsonPropertyName("commits_url")]
         public string Commits_Url { get; set; }
+        [BsonField("public")]
         [JsonPropertyName("public")]
         public bool Ispublic { get; set; }
+        [BsonField("updated_at")]
         [JsonPropertyName("updated_at")]
-        public string Updated_at { get; set; }
+        public DateTime Updated_at { get; set; }
+        [BsonField("created_at")]
         [JsonPropertyName("created_at")]
-        public string Created_at { get; set; }
+        public DateTime Created_at { get; set; }
+        [BsonField("description")]
         [JsonPropertyName("description")]
         public string Description { get; set; }
+        [BsonField("comments")]
         [JsonPropertyName("comments")]
         public int Comments { get; set; }
+        [BsonField("user")]
         [JsonPropertyName("user")]
         public string User { get; set;}
+        [BsonField("comments_url")]
         [JsonPropertyName("comments_url")]
         public string Comments_url { get; set; }
+        [BsonField("truncated")]
         [JsonPropertyName("truncated")]
         public bool Truncated { get; set; }
     }

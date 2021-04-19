@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:c="clr-namespace:GistApp.Components"
              xmlns:f="clr-namespace:GistApp.Helpers.Fonts"
-             x:Class="GistApp.Views.GitListPage">
+             x:Class="GistApp.Views.FavoriteListPage">
     <Shell.TitleView>
         <StackLayout
             Orientation="Horizontal">
@@ -11,14 +11,14 @@
                 Aspect="AspectFit">
                 <Image.Source>
                     <FontImageSource
-                        FontFamily="{StaticResource FontAwesomeBrands}"
-                        Glyph="{x:Static f:FAFontsBrands.Github}"
-                        Color="White">
+                        FontFamily="{StaticResource FontAwesomeRegularSolid}"
+                        Glyph="{x:Static f:FAFontsRegularSolid.Heart}"
+                        Color="Red">
                     </FontImageSource>
                 </Image.Source>
             </Image>
             <Label
-                Text="GistsApp"
+                Text="Favorites"
                 VerticalOptions="Center"
                 Style="{StaticResource ItemLabelStyle}"
                 FontSize="Large"/>
@@ -27,14 +27,26 @@
     <ContentPage.Content>
         <c:CustomGrid
             Padding="5"
-            BackgroundColor="{StaticResource Primary}">
+            BackgroundColor="{StaticResource Primary}">            
             <c:CustomCollectionView
-                SelectionChanged="CustomCollectionView_SelectionChanged"
-                RemainingItemsThresholdReached="CustomCollectionView_RemainingItemsThresholdReached"
-                RemainingItemsThreshold="{Binding ItensPerPage}"
                 ItemsSource="{Binding Items}"
-                SelectedItem="{Binding Item}"                
-                SelectionMode="Single">
+                SelectedItem="{Binding Item}"
+                SelectionMode="Single"
+                SelectionChanged="CustomCollectionView_SelectionChanged">
+                <c:CustomCollectionView.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20*"/>
+                        </Grid.RowDefinitions>
+                        <Entry
+                            Text="{Binding NameSearch}"
+                            Placeholder="Search by login name"
+                            PlaceholderColor="{StaticResource Secondary}"
+                            FontFamily="{StaticResource BaseFont}"
+                            TextColor="{StaticResource Secondary}"
+                            TextChanged="Entry_TextChanged"/>
+                    </Grid>
+                </c:CustomCollectionView.Header>
                 <c:CustomCollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView
@@ -52,8 +64,7 @@
                             </VisualStateManager.VisualStateGroups>
                             <SwipeView.RightItems>
                                 <SwipeItems>
-                                    <SwipeItem
-                                        Invoked="SwipeItem_Invoked">
+                                    <SwipeItem>
                                         <SwipeItem.IconImageSource>
                                             <FontImageSource
                                                 FontFamily="{StaticResource FontAwesomeRegularSolid}"
@@ -63,7 +74,7 @@
                                         </SwipeItem.IconImageSource>
                                     </SwipeItem>
                                 </SwipeItems>
-                            </SwipeView.RightItems>
+                            </SwipeView.RightItems>                          
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="30*"/>
@@ -80,7 +91,7 @@
                                     Style="{StaticResource ItemLabelStyle}"
                                     FontSize="Large"
                                     Grid.Column="1"/>
-                            </Grid>
+                            </Grid>                            
                         </SwipeView>
                     </DataTemplate>
                 </c:CustomCollectionView.ItemTemplate>

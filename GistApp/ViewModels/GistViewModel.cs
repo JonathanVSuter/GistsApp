@@ -1,15 +1,42 @@
 ﻿using GistApp.ExtractModels;
+using GistApp.LocalDataContext;
 using GistApp.Models;
 using GistApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace GistApp.ViewModels
 {
-    public class GistViewModel : BaseViewModel<PostGistItem>
+    public class GistViewModel : GenericViewModel<PostGistItem>
     {
+        private readonly GistService Service;
+        private readonly GistLocalDB GistLocalDB;
+        private readonly string Url = "https://api.github.com/";
+
+        private string _NameSearch;
+        public string NameSearch 
+        {
+            get 
+            {
+                return _NameSearch;
+            }
+            set 
+            {
+                _NameSearch = value;
+            }
+        }
+        public int CountFiles 
+        {
+            get 
+            {
+                return Item.Files.Count();
+            }  
+        }
         public string Title 
         {
             get 
@@ -17,8 +44,6 @@ namespace GistApp.ViewModels
                 return "Gists";
             }
         }
-        private readonly GistService Service;
-        private string Url = "https://api.github.com/";
         private int _ItensPerPage;
         public int ItensPerPage 
         {
@@ -45,7 +70,19 @@ namespace GistApp.ViewModels
         }
         public GistViewModel() 
         {
-            Service = new GistService(Url);            
+            Service = new GistService(Url);
+            GistLocalDB = new GistLocalDB();
+        }
+        public GistViewModel(bool activateService = true, bool activateGistLocal=true)
+        {
+            if(activateService)
+            {
+                Service = new GistService(Url);
+            }
+            if(activateGistLocal)
+            {
+                GistLocalDB = new GistLocalDB();
+            }
         }
         public GistViewModel(int itensperpage, int pagenumber, string url)
         {
@@ -54,10 +91,13 @@ namespace GistApp.ViewModels
                 ItensPerPage = itensperpage;
                 Page = pagenumber;
                 Url = url;
+                Service = new GistService(Url);
+                GistLocalDB = new GistLocalDB();                
             }
             else
             {
                 Service = new GistService(Url);
+                GistLocalDB = new GistLocalDB();                
             }
         }
         public async Task GetGists(int itensperpage, int initialpagenumber) 
@@ -80,6 +120,34 @@ namespace GistApp.ViewModels
         public async Task GetAllGists()
         {
             LoadItens(await Service.GetItemsAsync("gists").ConfigureAwait(true));
+        }
+        public void SaveGistLocal(PostGistItem item)
+        {
+            if(item!=null)
+            {
+                GistLocalDB.Add(item);
+            }
+        }
+        public void LoadGistsFromLocal() 
+        {
+            LoadItens(GistLocalDB.GetAll());
+        }
+        public void LoadGistsByName() 
+        {
+            //this is not the best way, cleaning Item's list, but i not found another way.
+            if(!string.IsNullOrEmpty(NameSearch))
+            {
+                Items.Clear();
+                LoadItens(GistLocalDB.GetBy(x => x.Owner.Login.Contains(NameSearch)));
+            }
+            else
+            {
+                if(Items.Any())
+                {
+                    Items.Clear();
+                }
+                LoadGistsFromLocal();
+            }
         }
 
     }

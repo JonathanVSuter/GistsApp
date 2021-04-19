@@ -11,24 +11,17 @@ using Xamarin.Forms.Xaml;
 namespace GistApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GitDetailPage : ContentPage
+    public partial class FavoriteDetailPage : ContentPage
     {
         private readonly GistViewModel Context;
-        public GitDetailPage(GistViewModel gistViewModel) 
-        {
-            InitializeComponent();
-            if(gistViewModel!=null)
-            {
-                BindingContext= Context = gistViewModel;
-            }
-        }
-        public GitDetailPage()
+        public FavoriteDetailPage()
         {
             InitializeComponent();
         }
-        private void Button_Clicked(object sender, EventArgs e)
+        public FavoriteDetailPage(GistViewModel gistViewModel)
         {
-            Context.SaveGistLocal(Context.Item);
+            InitializeComponent();
+            BindingContext = Context = gistViewModel;
         }
     }
 }

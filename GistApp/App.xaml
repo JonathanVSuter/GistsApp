@@ -7,16 +7,27 @@
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
-        <OnPlatform x:Key="FontAwesome" x:TypeArguments="x:String">
+        <OnPlatform x:Key="FontAwesomeRegularSolid" x:TypeArguments="x:String">
             <OnPlatform.Platforms>
-                <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
-                <On Platform="iOS" Value="Font Awesome 5 Free" />                
+                <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free Solid" />
+                <On Platform="iOS" Value="Font Awesome 5 Free Solid" />
+            </OnPlatform.Platforms>
+        </OnPlatform>
+        <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
+            <OnPlatform.Platforms>
+                <On Platform="Android" Value="Font Awesome 5 Free-Regular-400.otf#Font Awesome 5 Free-Regular-400" />
+                <On Platform="iOS" Value="Font Awesome 5 Free-Regular-400" />                
+            </OnPlatform.Platforms>
+        </OnPlatform>
+        <OnPlatform x:Key="FontAwesomeBrands" x:TypeArguments="x:String">
+            <OnPlatform.Platforms>
+                <On Platform="Android" Value="Font Awesome 5 Brands-Regular-400.otf#Font Awesome 5 Brands Regular" />
+                <On Platform="iOS" Value="Font Awesome 5 Brands Regular" />
             </OnPlatform.Platforms>
         </OnPlatform>
         <OnPlatform x:Key="BaseFont" x:TypeArguments="x:String">
             <On Platform="Android" Value="Montserrat-Regular.ttf#Montserrat-Regular" />
             <On Platform="iOS" Value="Montserrat-Regular" />
-            <On Platform="UWP" Value="Assets/Montserrat-Regular.ttf#Montserrat-Regular" />
         </OnPlatform>
         <OnPlatform x:Key="FontIcons" x:TypeArguments="x:String">
             <OnPlatform.Platforms>
@@ -26,13 +37,17 @@
             </OnPlatform.Platforms>
         </OnPlatform>
         <ResourceDictionary>
+            <x:String x:Key="DateLongFormatCreated">Created At {0:dddd, dd MMMM yyyy HH:mm:ss}</x:String>
+            
             <Color x:Key="Primary">#171515</Color>
+            <Color x:Key="Primary25">#1d1a1a</Color>
             <Color x:Key="Secondary">White</Color>
+            
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{DynamicResource BaseFont}"/>
                 <Setter Property="TextColor" Value="{StaticResource Primary}"/>
             </Style>
-            <Style x:Key="TitleLabelStyle" TargetType="Label">
+            <Style x:Key="ItemLabelStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{DynamicResource BaseFont}"/>
                 <Setter Property="TextColor" Value="{StaticResource Secondary}"/>
             </Style>
@@ -49,34 +64,6 @@
                             <VisualState x:Name="Disabled">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="#332196F3" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
-            <Style 
-                x:Key="CustomGridStyle" 
-                TargetType="a:CustomGrid">
-                <Setter 
-                    Property="BackgroundColor" 
-                    Value="Gray"/>
-            </Style>
-            <!--tentativa de colocar o estilo de seleção na Collection-->
-            <Style 
-                x:Key="CustomCollectionItemSelected" 
-                TargetType="a:CustomCollectionView">
-                <Setter
-                    Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup
-                                    Name="CommonStates">
-                            <VisualState Name="Normal"/>
-                            <VisualState Name="Selected">
-                                <VisualState.Setters>
-                                    <Setter 
-                                        Property="BackgroundColor" 
-                                        Value="DarkGray"/>
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>

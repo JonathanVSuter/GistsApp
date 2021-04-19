@@ -34,19 +34,16 @@ namespace GistApp.Views
             {
                 GitDetailPage gistDetailPage = new GitDetailPage(Context);
                 await Navigation.PushAsync(gistDetailPage).ConfigureAwait(true);
-            }
-            /*
-            PostGistItem item = (PostGistItem)e.CurrentSelection.FirstOrDefault();
-            if (item!=null && (!string.IsNullOrEmpty(item.Id)))
-            {
-                Context.Item = item;
-                GitDetailPage gistDetailPage = new GitDetailPage(Context);
-                await Navigation.PushAsync(gistDetailPage).ConfigureAwait(true);
-            }*/
+            }          
         }
         private async void CustomCollectionView_RemainingItemsThresholdReached(object sender, EventArgs e)
         {
             await Context.GetMoreGists().ConfigureAwait(true);
+        }
+
+        private void SwipeItem_Invoked(object sender, EventArgs e)
+        {
+            Context.SaveGistLocal(Context.Item);
         }
     }
 }
